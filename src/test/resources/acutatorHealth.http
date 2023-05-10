@@ -1,0 +1,2 @@
+GET http://localhost:8080/api/actuator/health
+Authorization: Basic utils utils

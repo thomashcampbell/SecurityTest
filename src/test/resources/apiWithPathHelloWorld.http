@@ -1,0 +1,2 @@
+GET http://localhost:8080/api/path/helloWorld
+Authorization: Basic utils utils

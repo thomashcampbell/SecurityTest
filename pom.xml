@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.0.5</version>
+    </parent>
+
+    <name>SecurityTest</name>
+    <description>SecurityTestProject</description>
+    <artifactId>SecurityTest</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <required.maven.version>3.8</required.maven.version>
+        <java.version>18</java.version>
+        <maven.compiler.version>3.11.0</maven.compiler.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!-- CHANGE BY HAND -->
+        <!-- Can not use the latest version of this as of yet 5.3.25 -->
+        <spring-messaging.version>5.3.26</spring-messaging.version>
+        <!-- Can not use versions past CR2 as of yet -->
+        <hibernate-jpamodelgen.version>6.2.0.CR2</hibernate-jpamodelgen.version>
+        <!-- CHANGE BY HAND -->
+
+        <lombok.version>1.18.26</lombok.version>
+        <springboot.version>3.0.4</springboot.version>
+        <logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>
+        <spring-boot-admin-starter-client.version>3.0.2</spring-boot-admin-starter-client.version>
+        <xmlrpc-client.version>3.1.3</xmlrpc-client.version>
+        <guava.version>31.1-jre</guava.version>
+        <jackson.version>2.15.0-rc1</jackson.version>
+        <togglz.version>4.0,0-M2</togglz.version>
+        <spring-cloud-starter-aws.version>2.2.6.RELEASE</spring-cloud-starter-aws.version>
+        <org.jetbrains.annotations>24.0.1</org.jetbrains.annotations>
+        <spring-cloud-sleuth.version>3.1.7</spring-cloud-sleuth.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <mariadb.version>3.1.3</mariadb.version>
+        <javax.mail.version>1.5.0-b01</javax.mail.version>
+        <jsoup.version>1.15.4</jsoup.version>
+
+        <liquibase.version>4.20.0</liquibase.version>
+
+        <!-- plugins -->
+        <maven.surefire.plugin>3.0.0</maven.surefire.plugin>
+        <versions.maven.plugin>2.14.2</versions.maven.plugin>
+        <maven.enforcer.plugin>3.2.1</maven.enforcer.plugin>
+        <maven.jar.plugin>3.3.0</maven.jar.plugin>
+        <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
+        <jib.version>3.3.1</jib.version>
+        <jaxb2-maven.version>3.1.0</jaxb2-maven.version>
+        <javax.xml.bind.version>2.3.1</javax.xml.bind.version>
+        <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
+        <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+
+        <DOCKERREGURL>dockerrepo.aotscc.com/aotscc/prd/utils-java18:221227-18-O-4</DOCKERREGURL>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+
+                <!-- Developer Tools -->
+                <configuration>
+                    <addResources>true</addResources>
+                </configuration>
+                <!-- Developer Tools -->
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+        </plugins>
+
+        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash-logback-encoder.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${org.jetbrains.annotations}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-sleuth</artifactId>
+            <type>pom</type>
+            <version>${spring-cloud-sleuth.version}</version>
+        </dependency>
+
+        <!-- Developer Tools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Spring Boot Admin -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin-starter-client.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
