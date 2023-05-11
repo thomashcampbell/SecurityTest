@@ -26,6 +26,8 @@ class ActuatorControllerTest {
     @Autowired
     private TestRestTemplate template;
 
+
+    // Access /actuator/health without a password
     @Test
     public void testingNoAuthenticationHealthActuator() throws Exception {
         ResponseEntity<String> result = template.getForEntity("/actuator/health", String.class);
@@ -33,6 +35,7 @@ class ActuatorControllerTest {
         assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
+    // Access /actuator/info without a password
     @Test
     public void testingNoAuthenticationInfoActuator() throws Exception {
         ResponseEntity<String> result = template.getForEntity("/actuator/info", String.class);
@@ -40,6 +43,7 @@ class ActuatorControllerTest {
         assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
+    // Access /actuator/env with a password
     @Test
     public void testingGoodAuthenticationEnvActuator() throws Exception {
         ResponseEntity<String> result = template.withBasicAuth("utils", "utils")
@@ -48,6 +52,7 @@ class ActuatorControllerTest {
         assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
+    // Access /actuator/env without a password (which fails)
     @Test
     public void testingNoAuthenticationEnvActuator() throws Exception {
         ResponseEntity<String> result = template.getForEntity("/actuator/env", String.class);
@@ -55,6 +60,7 @@ class ActuatorControllerTest {
         assertEquals(HttpStatus.UNAUTHORIZED, result.getStatusCode());
     }
 
+    // Access /actuator/env with a bad password (which fails)
     @Test
     public void testingBadAuthenticationEnvActuator() throws Exception {
         ResponseEntity<String> result = template.withBasicAuth("xxxx", "xxxx")

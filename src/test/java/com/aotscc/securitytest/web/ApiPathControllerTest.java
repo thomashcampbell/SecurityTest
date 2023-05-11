@@ -24,20 +24,30 @@ class ApiPathControllerTest {
     @Autowired
     private TestRestTemplate template;
 
+    // Access /path/helloWorld with good username/password
     @Test
-    public void testingGoodAuthenticationGoodPath() throws Exception {
+    public void testingGoodAuthentication() throws Exception {
         ResponseEntity<String> result = template.withBasicAuth("utils", "utils")
                 .getForEntity("/path/helloWorld", String.class);
 
         assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
+    // Access /path/helloWorld with bad username/password (should fail)
     @Test
-    public void testingBadAuthenticationGoodPath() throws Exception {
+    public void testingBadAuthentication() throws Exception {
         ResponseEntity<String> result = template.withBasicAuth("xxxx", "xxxx")
                 .getForEntity("/path/helloWorld", String.class);
 
         assertEquals(HttpStatus.UNAUTHORIZED, result.getStatusCode());
     }
 
+    // Access /path/helloWorld with no username/password (should fail if not then there is no authentication for the path)
+    @Test
+    public void testingNoAuthentication() throws Exception {
+        ResponseEntity<String> result = template
+                .getForEntity("/path/helloWorld", String.class);
+
+        assertEquals(HttpStatus.UNAUTHORIZED, result.getStatusCode());
+    }
 }
